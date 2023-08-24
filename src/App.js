@@ -10,6 +10,7 @@ import Audit from "./audit";
 import ContactForm from "./contact";
 import { useState } from "react";
 import Pricing from "./pricing";
+import History from "./reportHistory";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
         <Route path="/Home" element={<Homepage />} />
         <Route path="Contact%20Us" element={<ContactForm />} />
         <Route path="Pricing" element={<Pricing />} />
-        <Route path="/" element={<Homepage />} />
+        <Route path="History" element={<History />} />
         <Route path="/" element={<Homepage />} />
         <Route path="Audit" element={<Audit />} />
       </Routes>
