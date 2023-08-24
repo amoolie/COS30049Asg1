@@ -22,7 +22,9 @@ function Homepage() {
           sx={{ fontSize: 24, display: "flex", justifyContent: "center" }}
         >
           <div className="homepage-content">
-            <h2> Welcome to Sol-ar</h2>
+            <h2>
+              Welcome to <p className="sol-ar-heading">Sol-ar</p>
+            </h2>
             <p>
               select a file to identify potential vulnerabilities in your smart
               contract code. We use state of the art analysis tools to analyze
@@ -52,7 +54,22 @@ function Homepage() {
         >
           <Stack direction="row" spacing={2}>
             <Link to={"/Audit"}>
-              <Button variant="contained">Audit</Button>
+              <Button
+                variant="contained"
+                sx={{
+                  fontSize: "large",
+                  display: "block",
+                  margin: "0 auto",
+                  backgroundColor: "#51737f",
+                  cursor: "pointer",
+                  padding: "16px 32px",
+                  border: "none",
+                  color: "aliceblue",
+                  textDecoration: "none",
+                }}
+              >
+                Audit
+              </Button>
             </Link>
           </Stack>
         </Grid>

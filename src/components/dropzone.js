@@ -14,13 +14,13 @@ function MyDropzone() {
     <div className="dropzone">
       <div className="inner-border" {...getRootProps()}>
         <input {...getInputProps()} />
+
+        <img src={icon} className="drag-icon"></img>
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
           <p>Drag 'n' drop your smart contract, or click to browse</p>
         )}
-
-        <img src={icon}></img>
         <p className="supports"> Supports: SOL, CPP, JSON </p>
       </div>
     </div>

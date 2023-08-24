@@ -9,6 +9,7 @@ import { Routes, Route } from "react-router-dom";
 import Audit from "./audit";
 import ContactForm from "./contact";
 import { useState } from "react";
+import Pricing from "./pricing";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
       <Routes>
         <Route path="/Home" element={<Homepage />} />
         <Route path="Contact%20Us" element={<ContactForm />} />
-        <Route path="/" element={<Homepage />} />
+        <Route path="Pricing" element={<Pricing />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/" element={<Homepage />} />
         <Route path="Audit" element={<Audit />} />
