@@ -1,0 +1,68 @@
+.audit-body {
+
+    
+    background-attachment: fixed;
+  
+
+}
+
+.audit-grid{
+
+    display: flex;
+    justify-content: center;
+   
+    
+
+}
+.vul {
+    display: inline-block;
+}
+
+.result-grids-heading {
+
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.result-grids {
+
+    background-color: white;
+    border-radius: 15px;
+    padding: 0px 10px 10px 0px ;
+
+
+}
+
+.high {
+
+    color: #FF0000;
+    
+}
+
+.medium {
+
+    color: #FF5C00;
+
+}
+
+.low {
+
+    color: #A19101;
+
+}
+
+.fixed {
+
+    color: green;
+    display: inline;
+}
+
+.filename {
+
+    color: #8E8E8E;
+    font-size: small;
+    display: flex;
+    justify-content: end;
+
+}

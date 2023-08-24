@@ -1,0 +1,25 @@
+.dropzone {
+
+    background-color: rgb(203,220,225,0.7);
+    
+    width: 700px;
+    height: 300px;
+    padding: 10px;
+
+}
+
+.inner-border{
+
+
+    border-style: dashed;
+    height: 300px;
+    font-size: 15px;
+    text-align: center;
+
+}
+
+.supports {
+
+    color: rgb(0, 0, 0);
+
+}

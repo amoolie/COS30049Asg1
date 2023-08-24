@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.home{
+
+  background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+
+
+}
+
+.Audit {
+
+  background:  linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+
+
+}
+@media only screen and (max-width: 3840px) {
+  .home {
+    background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+  
+   
+     background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  .home {
+    background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+  
+   
+     background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    
+  }
+}
+@media only screen and (max-width: 1600px) {
+  .home {
+    background:  url(img/1600x900.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+  
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .home {
+    background:  url(img/1366x768.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+  
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+  }
+}
