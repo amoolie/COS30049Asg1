@@ -39,6 +39,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const [login, isLogin] = React.useState(false);
+
   return (
     <Box
       sx={{
@@ -172,10 +174,16 @@ function ResponsiveAppBar() {
               }}
             >
               <Tooltip title="Login">
-                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton> */}
-                <Link to={"/Login"}>Login</Link>
+                {login === true ? (
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                ) : (
+                  <Link to={"/Login"}>Login</Link>
+                )}
               </Tooltip>
               <Menu
                 sx={{ mt: "45px" }}

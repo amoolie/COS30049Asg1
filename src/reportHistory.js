@@ -9,11 +9,11 @@ function History() {
     <Box sx={{ flexGrow: 1 }}>
       <Grid className="audit-grid" container spacing={1}>
         <Grid item xs={8} sx={{ textAlign: "center" }}>
-          <h1>Report</h1>
+          <h1>History</h1>
         </Grid>
       </Grid>
 
-      <Grid xs={8} sx={{ margin: "50px" }}>
+      <Grid xs={8} sx={{ display: "flex", justifyContent: "center" }}>
         <StickyHeadTable></StickyHeadTable>
       </Grid>
     </Box>

@@ -11,6 +11,7 @@ import ContactForm from "./contact";
 import { useState } from "react";
 import Pricing from "./pricing";
 import History from "./reportHistory";
+import SignIn from "./login";
 
 function App() {
   return (
@@ -27,11 +28,12 @@ function App() {
         </Box>
       </Grid>
       <Routes>
-        <Route path="/Home" element={<Homepage />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="Home" element={<Homepage />} />
         <Route path="Contact%20Us" element={<ContactForm />} />
         <Route path="Pricing" element={<Pricing />} />
         <Route path="History" element={<History />} />
-        <Route path="/" element={<Homepage />} />
+        <Route path="Login" element={<SignIn />} />
         <Route path="Audit" element={<Audit />} />
       </Routes>
     </div>
