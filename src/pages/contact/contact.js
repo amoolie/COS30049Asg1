@@ -24,7 +24,7 @@ export default function ContactForm() {
         height: "100vh",
       }}
     >
-      <Box sx={{ maxWidth: 600, mx: "auto", p: 2, backgroundColor: "white" }}>
+      <Box sx={{ maxWidth: 600, mx: "auto", p: 2 }}>
         <Typography variant="h4" align="center" mb={2}>
           Contact Us
         </Typography>
