@@ -1,3 +1,6 @@
+// Name: Jibin Gallistus Gnanadhas
+// StudentID: 104361536
+
 //contains the dropzone where the user adds the file
 
 import React, { useCallback } from "react";

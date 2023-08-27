@@ -1,3 +1,6 @@
+// Name: Jibin Gallistus Gnanadhas
+// StudentID: 104361536
+
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import StickyHeadTable from "./components/table";

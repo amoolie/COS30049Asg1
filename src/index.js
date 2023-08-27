@@ -1,20 +1,23 @@
+// Name: Jibin Gallistus Gnanadhas
+// StudentID: 104361536
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
-import Homepage from "./home";
 import { BrowserRouter } from "react-router-dom";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import store from "./app/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

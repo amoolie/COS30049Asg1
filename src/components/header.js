@@ -1,6 +1,9 @@
+// Name: Jibin Gallistus Gnanadhas
+// StudentID: 104361536
+
 // Contains the common navigation bar of all websites
 import "../index.css";
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,15 +17,22 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import { CenterFocusStrong } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../Features/userSlice";
 
-const pages = ["Home", "About", "Pricing", "Contact Us"];
+const pages = ["Home", "Pricing", "Contact Us"];
 const settings = ["Account", "Report History", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const loggedIn = window.localStorage.getItem("isLoggedIn");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,7 +49,20 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
-  const [login, isLogin] = React.useState(false);
+  const handleSetting = (setting, event) => {
+    switch (setting) {
+      case "Report History":
+        navigate("/History");
+        break;
+      case "Logout":
+        dispatch(logout());
+        window.localStorage.removeItem("isLoggedIn");
+        navigate("/");
+        break;
+      case "Account":
+        alert("This page has not been created yet");
+    }
+  };
 
   return (
     <Box
@@ -174,7 +197,7 @@ function ResponsiveAppBar() {
               }}
             >
               <Tooltip title="Login">
-                {login === true ? (
+                {loggedIn ? (
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="Remy Sharp"
@@ -202,7 +225,13 @@ function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={function (event) {
+                      handleCloseUserMenu();
+                      handleSetting(setting);
+                    }}
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}

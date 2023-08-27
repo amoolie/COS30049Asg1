@@ -1,3 +1,6 @@
+// Name: Jibin Gallistus Gnanadhas
+// StudentID: 104361536
+
 //contains the homepage of the website
 
 import "./home.css";
@@ -9,10 +12,6 @@ import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 
 function Homepage() {
-  const [disabled, setDisabled] = useState(true);
-  const onClick = () => {
-    setDisabled(false);
-  };
   document.body.className = "home";
   return (
     <div className="Home">

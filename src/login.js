@@ -1,4 +1,7 @@
-import * as React from "react";
+// Name: Jibin Gallistus Gnanadhas
+// StudentID: 104361536
+
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,51 +15,36 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "./Features/userSlice";
+import { useNavigate } from "react-router-dom";
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  // creating hooks t ostore email and pass and error messages
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const database = [
-    {
-      username: "user1",
-      password: "pass1",
-    },
-    {
-      username: "user2",
-      password: "pass2",
-    },
-  ];
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault(); //prevents the site from refreshing
-    const data = new FormData(event.currentTarget);
 
-    var { uname, pass } = document.forms[0];
-
-    const userData = database.find((user) => user.username === uname.value);
-
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
+    if (email === "test@test.com" && pass === "pass") {
+      dispatch(
+        login({
+          email: email,
+          pass: pass,
+          loggedIn: true,
+        })
+      );
+      window.localStorage.setItem("isLoggedIn", true);
+      navigate("../Home", { replace: true });
     } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
+      alert("The username and password entered don't match");
     }
   };
 
@@ -93,6 +81,8 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -103,6 +93,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -117,11 +109,6 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}

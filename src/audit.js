@@ -1,3 +1,6 @@
+// Name: Jibin Gallistus Gnanadhas
+// StudentID: 104361536
+
 // App.js contains the homepage of the website
 
 import { Grid } from "@mui/material";
