@@ -18,9 +18,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../Features/userSlice";
 
 const pages = ["Home", "Pricing", "Contact Us"];
 const settings = ["Account", "Report History", "Logout"];
@@ -32,7 +30,6 @@ function ResponsiveAppBar() {
   const loggedIn = window.localStorage.getItem("isLoggedIn");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -55,7 +52,6 @@ function ResponsiveAppBar() {
         navigate("/History");
         break;
       case "Logout":
-        dispatch(logout());
         window.localStorage.removeItem("isLoggedIn");
         navigate("/");
         break;
@@ -154,7 +150,13 @@ function ResponsiveAppBar() {
                 ))}
               </Menu>
             </Box>
-            <WbSunnyIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <WbSunnyIcon
+              sx={{
+                display: { xs: "flex", md: "none" },
+                mr: 1,
+                color: "black",
+              }}
+            />
             <Typography
               variant="h5"
               noWrap

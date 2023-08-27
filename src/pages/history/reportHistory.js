@@ -3,7 +3,7 @@
 
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import StickyHeadTable from "./components/table";
+import StickyHeadTable from "../../components/table";
 
 function History() {
   document.body.className = "History";

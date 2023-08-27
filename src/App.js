@@ -7,19 +7,17 @@ import "./App.css";
 import { Grid } from "@mui/material";
 import ResponsiveAppBar from "./components/header";
 import Box from "@mui/material/Box";
-import Homepage from "./home";
+import Homepage from "./pages/home/home";
 import { Routes, Route } from "react-router-dom";
-import Audit from "./audit";
-import ContactForm from "./contact";
-import Pricing from "./pricing";
-import History from "./reportHistory";
-import SignIn from "./login";
-import { useSelector } from "react-redux";
-import { selectUser } from "./Features/userSlice";
+import Audit from "./pages/audit/audit";
+import ContactForm from "./pages/contact/contact";
+import Pricing from "./pages/pricing/pricing";
+import History from "./pages/history/reportHistory";
+import SignIn from "./pages/login/login";
 
 function App() {
-  const user = useSelector(selectUser);
   const loggedin = window.localStorage.getItem("isLoggedIn");
+
   return (
     <div className="App">
       <Grid xs={12}>
@@ -36,10 +34,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="Home" element={<Homepage />} />
-        <Route path="Contact%20Us" element={<ContactForm />} />
+        <Route path="Contact Us" element={<ContactForm />} />
         <Route path="Pricing" element={<Pricing />} />
         <Route path="History" element={<History />} />
-
         <Route path="Login" element={<SignIn />} />
         <Route path="Audit" element={<Audit />} />
       </Routes>

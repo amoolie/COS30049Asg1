@@ -5,25 +5,26 @@ import { useState } from "react";
 import { TextField, Button, Typography, Box } from "@mui/material";
 
 export default function ContactForm() {
+  document.body.className = "contact";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //
+    alert("your message has been sent");
   };
 
   return (
     <Box
       sx={{
         display: "flex",
-        alignItems: "center",
+        margin: "50px",
         justifyContent: "center",
         height: "100vh",
       }}
     >
-      <Box sx={{ maxWidth: 600, mx: "auto", p: 2 }}>
+      <Box sx={{ maxWidth: 600, mx: "auto", p: 2, backgroundColor: "white" }}>
         <Typography variant="h4" align="center" mb={2}>
           Contact Us
         </Typography>

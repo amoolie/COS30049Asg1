@@ -6,7 +6,7 @@
 import "./home.css";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import MyDropzone from "./components/dropzone";
+import MyDropzone from "../../components/dropzone";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";

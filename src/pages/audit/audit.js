@@ -4,11 +4,11 @@
 // App.js contains the homepage of the website
 
 import { Grid } from "@mui/material";
-import ResponsiveAppBar from "./components/header";
+import ResponsiveAppBar from "../../components/header";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Homepage from "./home";
+import Homepage from "../home/home";
 import { Routes, Route } from "react-router-dom";
 import "./audit.css";
 

@@ -17,14 +17,14 @@ code {
 }
 
 
-.home{
+.home {
 
   background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
 
 
 }
 
-.Audit, .pricing, .History {
+.Audit, .pricing, .History, .contact {
 
   background:  linear-gradient(#ff7a00, #1e1e1e) no-repeat;
   background-attachment: fixed;
@@ -73,3 +73,14 @@ code {
     background-position: center center;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .home {
+    background:   linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+  
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
