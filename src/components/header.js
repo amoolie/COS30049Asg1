@@ -74,17 +74,17 @@ function ResponsiveAppBar() {
         position="static"
         sx={{
           borderRadius: 100,
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          backgroundColor: "#2196F3",
           maxWidth: {
             lg: "1000px",
           },
         }}
       >
-        <Container maxWidth="xl">
+        <Container maxWidth="x1">
           <Toolbar disableGutters>
             <WbSunnyIcon
               sx={{
-                display: { xs: "none", md: "flex", color: "black" },
+                display: { xs: "none", md: "flex", color: "white" },
                 mr: 1,
               }}
             />
@@ -99,7 +99,7 @@ function ResponsiveAppBar() {
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "black",
+                color: "white",
                 textDecoration: "none",
               }}
             >
@@ -119,7 +119,8 @@ function ResponsiveAppBar() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="black"
+                color="white"
+                
               >
                 <MenuIcon />
               </IconButton>
@@ -138,7 +139,7 @@ function ResponsiveAppBar() {
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: "block", md: "none" },
+                  display: { xs: "white", md: "none" },
                 }}
               >
                 {pages.map((page) => (
@@ -154,7 +155,7 @@ function ResponsiveAppBar() {
               sx={{
                 display: { xs: "flex", md: "none" },
                 mr: 1,
-                color: "black",
+                color: "white",
               }}
             />
             <Typography
@@ -169,7 +170,7 @@ function ResponsiveAppBar() {
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "black",
+                color: "white",
                 textDecoration: "none",
               }}
             ></Typography>
@@ -178,10 +179,10 @@ function ResponsiveAppBar() {
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "black", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
                   <Link
-                    style={{ textDecoration: "none", color: "black" }}
+                    style={{ textDecoration: "none", color: "white" }}
                     to={`/${page}`}
                   >
                     {page}
@@ -193,7 +194,7 @@ function ResponsiveAppBar() {
             <Box
               sx={{
                 flexGrow: 0,
-                color: "black",
+                color: "white",
                 fontWeight: "bold",
                 fontSize: "px",
               }}
