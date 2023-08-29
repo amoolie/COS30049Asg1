@@ -1,6 +1,7 @@
 // Name: Jibin Gallistus Gnanadhas
 // StudentID: 104361536
 
+// Contains the pricing and things related to each tier for the user
 import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -59,7 +60,6 @@ const tiers = [
   },
 ];
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Pricing() {
@@ -99,9 +99,15 @@ export default function Pricing() {
       </Container>
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
+        <Grid
+          container
+          spacing={5}
+          alignItems="flex-end"
+          sx={{
+            borderRadius: "25px",
+          }}
+        >
           {tiers.map((tier) => (
-            // Enterprise card is full width at sm breakpoint
             <Grid
               item
               key={tier.title}
@@ -168,9 +174,6 @@ export default function Pricing() {
           ))}
         </Grid>
       </Container>
-      {/* Footer */}
-
-      {/* End footer */}
     </ThemeProvider>
   );
 }

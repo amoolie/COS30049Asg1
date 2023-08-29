@@ -1,6 +1,7 @@
 // Name: Jibin Gallistus Gnanadhas
 // StudentID: 104361536
 
+// imports
 import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -11,6 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
+// holds the column headers
 const columns = [
   { id: "name", label: "File Name", minWidth: 170, align: "left" },
   {
@@ -33,6 +35,7 @@ function createData(name, date_time, notes) {
   return { name, date_time, notes };
 }
 
+// Holds the values for each row
 const rows = [
   createData(
     "83245JSAHFLASHJDsalkaJAKSL.pdf",
@@ -51,10 +54,12 @@ export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  //controls the change of page
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  // controls the change of number of rows per page
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -70,7 +75,9 @@ export default function StickyHeadTable() {
         overflow: "hidden",
       }}
     >
-      <TableContainer sx={{ Height: "700px", minHeight: "650px" }}>
+      <TableContainer
+        sx={{ Height: "700px", minHeight: "650px", borderRadius: "25px" }}
+      >
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

@@ -12,11 +12,9 @@ import Homepage from "../home/home";
 import { Routes, Route } from "react-router-dom";
 import "./audit.css";
 
+// stylying the audit info sections
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgb(255,255,255,0.7)"
-      : "rgb(255,255,255,0.7)",
+  backgroundColor: "rgb(255,255,255,0.7)",
   ...theme.typography.body2,
   padding: theme.spacing(),
   textAlign: "center",
@@ -133,6 +131,7 @@ function Audit() {
             </Grid>
           </Grid>
 
+          {/* displaying the file the user has selected */}
           <Grid item xs={8} className="filename">
             83245JSAHFLASHJDsalkaJAKSL.pdf
           </Grid>

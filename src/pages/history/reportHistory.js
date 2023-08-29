@@ -1,11 +1,14 @@
 // Name: Jibin Gallistus Gnanadhas
 // StudentID: 104361536
 
+//Page that shows the previous reports of the user
+
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import StickyHeadTable from "../../components/table";
 
 function History() {
+  // sets the body's class to History so the specific styles can be applied
   document.body.className = "History";
 
   return (
@@ -16,6 +19,7 @@ function History() {
         </Grid>
       </Grid>
 
+      {/* Uses the material UI table from the file table.js */}
       <Grid xs={8} sx={{ display: "flex", justifyContent: "center" }}>
         <StickyHeadTable></StickyHeadTable>
       </Grid>

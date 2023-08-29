@@ -30,6 +30,8 @@ code {
   background-attachment: fixed;
 
 }
+
+/* Responsive screen sizing the background */
 @media only screen and (max-width: 3840px) {
   .home {
     background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;

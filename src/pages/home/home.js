@@ -32,7 +32,7 @@ function Homepage() {
             </p>
           </div>
         </Grid>
-
+        {/* Calls on the Dropzone component from a library called react-dropzone in dropzone.js */}
         <Grid
           item
           xs={12}

@@ -22,7 +22,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   document.body.className = "home login";
-  // creating hooks t ostore email and pass and error messages
+  // creating hooks to store email and pass and error messages
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 

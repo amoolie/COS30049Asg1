@@ -1,18 +1,25 @@
 // Name: Jibin Gallistus Gnanadhas
 // StudentID: 104361536
 
+// a form where users could contact the business for enquires and help
 import { useState } from "react";
 import { TextField, Button, Typography, Box } from "@mui/material";
 
 export default function ContactForm() {
   document.body.className = "contact";
+
+  // hooks to store values such as name, email and message
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  // function that handles what happenes when the user clicks submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("your message has been sent");
+
+    // tells the user that thier response has been submitted
+    alert("hey " + name + " your message has been sent");
   };
 
   return (
