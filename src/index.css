@@ -19,66 +19,58 @@ code {
 
 .home {
 
-  background:  url(img/img1.jpg), linear-gradient(#ece9e5, #1e1e1e) no-repeat;
+  background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
 
 
 }
 
 .Audit, .pricing, .History, .contact {
 
-  background:  linear-gradient(#7eb4e0, #1e1e1e) no-repeat;
+  background:  linear-gradient(#ff7a00, #1e1e1e) no-repeat;
   background-attachment: fixed;
 
 }
 @media only screen and (max-width: 3840px) {
   .home {
-    background:  url(img/img1.jpg), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+    background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
   
    
      background-attachment: fixed;
     background-size: cover;
     background-position: center center;
-    backdrop-filter: blur(5px); /* Add blur effect */
-
     
   }
 }
 
 @media only screen and (max-width: 1920px) {
   .home {
-    background:  url(img/img1.jpg), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+    background:  url(img/1920x1080.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
   
    
      background-attachment: fixed;
     background-size: cover;
     background-position: center center;
-    backdrop-filter: blur(5px); /* Add blur effect */
-
     
   }
 }
 @media only screen and (max-width: 1600px) {
   .home {
-    background:  url(img/img1.jpg), linear-gradient(#ff7a00, #1e1e1e) no-repeat;/*166*/
+    background:  url(img/1600x900.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
   
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
-    backdrop-filter: blur(5px); /* Add blur effect */
-
     
   }
 }
 
 @media only screen and (max-width: 1366px) {
   .home {
-    background:  url(img/img1.jpg), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
+    background:  url(img/1366x768.png), linear-gradient(#ff7a00, #1e1e1e) no-repeat;
   
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
-    backdrop-filter: blur(5px); /* Add blur effect */
-
   }
 }
 
