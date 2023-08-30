@@ -1,7 +1,7 @@
 // Name: Jibin Gallistus Gnanadhas
 // StudentID: 104361536
 
-// App.js contains the routes of the website
+// App.js contains the routes of the website and handles protection of the website
 
 import "./App.css";
 import { Grid } from "@mui/material";

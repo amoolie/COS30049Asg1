@@ -17,6 +17,7 @@ import Typography from "@mui/material/Typography";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 
+// contains the data that would be on the tier tiles
 const tiers = [
   {
     title: "Free",
