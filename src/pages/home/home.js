@@ -5,13 +5,26 @@
 
 import "./home.css";
 import { Grid } from "@mui/material";
-import { useState } from "react";
 import MyDropzone from "../../components/dropzone";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Homepage() {
+  const navigate = useNavigate();
+
+  // Checks if file is added and then shows the audit and doesn't otherwise
+
+  const checkFileAdded = (event) => {
+    event.preventDefault();
+    if (window.localStorage.getItem("FileAdded") === "false") {
+      alert("Please Choose a file to audit");
+    } else {
+      navigate("../Audit");
+    }
+  };
+
   document.body.className = "home";
   return (
     <div className="Home">
@@ -52,7 +65,7 @@ function Homepage() {
           }}
         >
           <Stack direction="row" spacing={2}>
-            <Link to={"/Audit"}>
+            <Link onClick={checkFileAdded}>
               <Button
                 variant="contained"
                 sx={{

@@ -1,7 +1,7 @@
 // Name: Jibin Gallistus Gnanadhas
 // StudentID: 104361536
 
-// App.js contains the routes of the website and handles protection of the website
+// App.js contains the routes of the website
 
 import "./App.css";
 import { Grid } from "@mui/material";
@@ -16,8 +16,6 @@ import History from "./pages/history/reportHistory";
 import SignIn from "./pages/login/login";
 
 function App() {
-  const loggedin = window.localStorage.getItem("isLoggedIn");
-
   return (
     <div className="App">
       <Grid xs={12}>

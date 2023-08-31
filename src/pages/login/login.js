@@ -29,7 +29,8 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
-    event.preventDefault(); //prevents the site from refreshing
+    //prevents the site from refreshing
+    event.preventDefault();
 
     if (email === "test@test.com" && pass === "pass") {
       window.localStorage.setItem("isLoggedIn", true);
