@@ -1,6 +1,8 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
 
+*/
 // imports
 import * as React from "react";
 import Paper from "@mui/material/Paper";

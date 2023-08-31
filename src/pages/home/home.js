@@ -1,6 +1,8 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
 
+*/
 //contains the homepage of the website
 
 import "./home.css";
@@ -15,7 +17,6 @@ function Homepage() {
   const navigate = useNavigate();
 
   // Checks if file is added and then shows the audit and doesn't otherwise
-
   const checkFileAdded = (event) => {
     event.preventDefault();
     if (window.localStorage.getItem("FileAdded") === "false") {

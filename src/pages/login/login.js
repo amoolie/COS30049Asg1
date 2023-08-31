@@ -1,5 +1,8 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
+
+*/
 
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";

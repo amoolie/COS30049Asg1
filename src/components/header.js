@@ -1,5 +1,8 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
+
+*/
 
 // Contains the common navigation bar of all websites
 import "../index.css";

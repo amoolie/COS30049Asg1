@@ -1,6 +1,8 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
 
+*/
 //Page that shows the previous reports of the user
 
 import { Grid } from "@mui/material";

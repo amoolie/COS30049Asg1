@@ -1,6 +1,8 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
 
+*/
 // App.js contains the routes of the website
 
 import "./App.css";

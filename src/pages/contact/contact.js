@@ -1,6 +1,8 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
 
+*/
 // a form where users could contact the business for enquires and help
 import { useState } from "react";
 import { TextField, Button, Typography, Box } from "@mui/material";

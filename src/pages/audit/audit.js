@@ -1,10 +1,12 @@
-// Name: Jibin Gallistus Gnanadhas
-// StudentID: 104361536
+/* 
+Name: Jibin Gallistus Gnanadhas
+StudentID: 104361536
+
+*/
 
 // App.js contains the homepage of the website
 import React from "react";
 import { Grid } from "@mui/material";
-import ResponsiveAppBar from "../../components/header";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
