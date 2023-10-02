@@ -1,8 +1,10 @@
 /* 
 Name: Jibin Gallistus Gnanadhas
 StudentID: 104361536
-
+Name: Amelie Li Xuan Teh 
+StudentID: 104044361
 */
+
 // Contains the pricing and things related to each tier for the user
 import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

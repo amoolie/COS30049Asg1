@@ -1,31 +1,18 @@
 /* 
 Name: Jibin Gallistus Gnanadhas
 StudentID: 104361536
-
+Name: Amelie Li Xuan Teh 
+StudentID: 104044361
 */
 //contains the homepage of the website
 
 import "./home.css";
 import { Grid } from "@mui/material";
 import MyDropzone from "../../components/dropzone";
-import Button from "@mui/material/Button";
+
 import Stack from "@mui/material/Stack";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 function Homepage() {
-  const navigate = useNavigate();
-
-  // Checks if file is added and then shows the audit and doesn't otherwise
-  const checkFileAdded = (event) => {
-    event.preventDefault();
-    if (window.localStorage.getItem("FileAdded") === "false") {
-      alert("Please Choose a file to audit");
-    } else {
-      navigate("../Audit");
-    }
-  };
-
   document.body.className = "home";
   return (
     <div className="Home">
@@ -65,26 +52,8 @@ function Homepage() {
             margin: "10px",
           }}
         >
-          <Stack direction="row" spacing={2}>
-            <Link onClick={checkFileAdded}>
-              <Button
-                variant="contained"
-                sx={{
-                  fontSize: "large",
-                  display: "block",
-                  margin: "0 auto",
-                  backgroundColor: "#51737f",
-                  cursor: "pointer",
-                  padding: "16px 32px",
-                  border: "none",
-                  color: "aliceblue",
-                  textDecoration: "none",
-                }}
-              >
-                Audit
-              </Button>
-            </Link>
-          </Stack>
+          {/* checks if the file has been added using a value pair stored in the local storage */}
+          <Stack direction="row" spacing={2}></Stack>
         </Grid>
       </Grid>
     </div>

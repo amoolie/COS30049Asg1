@@ -1,7 +1,8 @@
 /* 
 Name: Jibin Gallistus Gnanadhas
 StudentID: 104361536
-
+Name: Amelie Li Xuan Teh 
+StudentID: 104044361
 */
 
 import React from "react";

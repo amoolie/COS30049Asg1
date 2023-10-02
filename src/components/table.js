@@ -1,10 +1,12 @@
 /* 
 Name: Jibin Gallistus Gnanadhas
 StudentID: 104361536
-
+Name: Amelie Li Xuan Teh 
+StudentID: 104044361
 */
 // imports
 import * as React from "react";
+import { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,13 +15,28 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import axios from "axios";
 
 // holds the column headers
 const columns = [
+  {
+    id: "No.",
+    label: "No.",
+    minWidth: 170,
+    align: "left",
+    format: (value) => value.toLocaleString("en-US"),
+  },
   { id: "name", label: "File Name", minWidth: 170, align: "left" },
   {
-    id: "date_time",
-    label: "Date & Time",
+    id: "date",
+    label: "Date",
+    minWidth: 170,
+    align: "left",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "time",
+    label: "Time",
     minWidth: 170,
     align: "left",
     format: (value) => value.toLocaleString("en-US"),
@@ -33,26 +50,30 @@ const columns = [
   },
 ];
 
-function createData(name, date_time, notes) {
-  return { name, date_time, notes };
+function createData(date, name, notes, no, time) {
+  return { no, name, date, time, notes };
 }
 
 // Holds the values for each row
-const rows = [
-  createData(
-    "83245JSAHFLASHJDsalkaJAKSL.pdf",
-    "10/09/2022 21:09",
-    "Passed all tests"
-  ),
-
-  createData(
-    "87324asdsdSHJDsalkaJAKSL.pdf",
-    "12/04/2022 11:09",
-    "Passed 31/50 tests"
-  ),
-];
 
 export default function StickyHeadTable() {
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/history/")
+      .then((response) => {
+        const data = response.data;
+        const formattedRows = data.map((item) =>
+          createData(item.date, item.filename, item.notes, item.Sno, item.time)
+        );
+        setRows(formattedRows);
+      })
+      .catch((error) => {
+        console.error("there are errors:", error);
+      });
+  }, []);
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 

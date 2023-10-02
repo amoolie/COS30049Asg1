@@ -1,8 +1,10 @@
 /* 
 Name: Jibin Gallistus Gnanadhas
 StudentID: 104361536
-
+Name: Amelie Li Xuan Teh 
+StudentID: 104044361
 */
+
 // App.js contains the routes of the website
 
 import "./App.css";
@@ -28,6 +30,7 @@ function App() {
             justifyContent: "center",
           }}
         >
+          {/* calls on the responsive appbar created in the header.js table */}
           <ResponsiveAppBar></ResponsiveAppBar>
         </Box>
       </Grid>

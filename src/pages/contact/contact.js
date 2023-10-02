@@ -1,7 +1,8 @@
 /* 
 Name: Jibin Gallistus Gnanadhas
 StudentID: 104361536
-
+Name: Amelie Li Xuan Teh 
+StudentID: 104044361
 */
 // a form where users could contact the business for enquires and help
 import { useState } from "react";

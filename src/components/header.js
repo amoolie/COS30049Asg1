@@ -1,7 +1,8 @@
 /* 
 Name: Jibin Gallistus Gnanadhas
 StudentID: 104361536
-
+Name: Amelie Li Xuan Teh 
+StudentID: 104044361
 */
 
 // Contains the common navigation bar of all websites
@@ -34,21 +35,27 @@ function ResponsiveAppBar() {
 
   const navigate = useNavigate();
 
+  // when the navigation menu is opened
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
+  //when the user menu is opened
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
+  //when the navMenu is closed
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
+  //when the user menu is closed
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
+  // uses a switch statement to check which button is clicked by the user
   const handleSetting = (setting, event) => {
     switch (setting) {
       case "Report History":
