@@ -20,7 +20,7 @@ import axios from "axios";
 // holds the column headers
 const columns = [
   {
-    id: "No.",
+    id: "no",
     label: "No.",
     minWidth: 170,
     align: "left",

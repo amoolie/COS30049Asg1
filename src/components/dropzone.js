@@ -46,7 +46,7 @@ function MyDropzone(props) {
       );
       if (response.status >= 200 && response.status < 300) {
         console.log(response.data);
-        // Handle the response, maybe display the audit results
+        navigate("../Audit");
       } else {
         throw new Error("Server responded with a non-2xx status code");
       }
@@ -54,6 +54,9 @@ function MyDropzone(props) {
       console.error(
         "Error uploading file:",
         error.response?.data || error.message
+      );
+      alert(
+        "We're currently facing connectivity issues. Please try again later."
       );
     }
   };
@@ -65,7 +68,6 @@ function MyDropzone(props) {
       alert("Please Choose a file to audit");
     } else {
       handleSubmit();
-      // navigate("../Audit");
     }
   };
 
@@ -80,6 +82,7 @@ function MyDropzone(props) {
       handleFileChange(accepted);
       if (accepted.length > 0) {
         setFileAdded(true);
+        alert("Your file has been added successfully");
       } else {
         setFileAdded(false);
       }
