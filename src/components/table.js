@@ -35,23 +35,16 @@ const columns = [
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "time",
-    label: "Time",
-    minWidth: 170,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "notes",
-    label: "Notes",
+    id: "result_summary",
+    label: "Summary",
     minWidth: 170,
     align: "left",
     format: (value) => value.toFixed(2),
   },
 ];
 
-function createData(date, name, notes, no, time) {
-  return { no, name, date, time, notes };
+function createData(date, name, result_summary, no) {
+  return { no, name, date, result_summary };
 }
 
 // Holds the values for each row
@@ -64,8 +57,8 @@ export default function StickyHeadTable() {
       .get("http://127.0.0.1:8000/history/")
       .then((response) => {
         const data = response.data;
-        const formattedRows = data.map((item) =>
-          createData(item.date, item.filename, item.notes, item.Sno, item.time)
+        const formattedRows = data.map((item, index) =>
+          createData(item.date, item.file_name, item.result_summary, index + 1)
         );
         setRows(formattedRows);
       })

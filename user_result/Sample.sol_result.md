@@ -45,11 +45,11 @@ Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID_scope_0].rewardToken,bReward)](user_upload/Sample.sol#L1693)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	State variables written after the call(s):
 	- [j < rewardID[pID].length()](user_upload/Sample.sol#L1687)
 	[HoldEarn.userBet](user_upload/Sample.sol#L1196) can be used in cross function reentrancies:
@@ -92,8 +92,8 @@ Reentrancy in [HoldEarn.setDefaultToken(uint256,address,uint256)](user_upload/Sa
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [_transferOut(msg.sender,periodInfo[pID].defaultToken,beforeAmount)](user_upload/Sample.sol#L1395)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	- [_transferIn(msg.sender,token,afterAmount)](user_upload/Sample.sol#L1398)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	State variables written after the call(s):
@@ -181,8 +181,8 @@ Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	State variables written after the call(s):
 	- [userBet[msg.sender][pID].sTid.push(tID)](user_upload/Sample.sol#L1679)
 	[HoldEarn.userBet](user_upload/Sample.sol#L1196) can be used in cross function reentrancies:
@@ -390,23 +390,6 @@ user_upload/Sample.sol#L1088
 Impact: Low
 Confidence: Medium
  - [ ] ID-27
-Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
-	External calls:
-	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
-		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
-		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	External calls sending eth:
-	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	State variables written after the call(s):
-	- [returnRewardAmount[pID][tID_scope_1] = rewardTokenInfo[pID][tID_scope_1].totalAmount](user_upload/Sample.sol#L1522)
-
-user_upload/Sample.sol#L1506-L1545
-
-
- - [ ] ID-28
 Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L1475):
 	External calls:
 	- [IERC20(periodInfo[pID].userToken).safeTransferFrom(msg.sender,address(this),amount)](user_upload/Sample.sol#L1461)
@@ -419,24 +402,7 @@ Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L
 user_upload/Sample.sol#L1456-L1475
 
 
- - [ ] ID-29
-Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
-	External calls:
-	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
-		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
-		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	External calls sending eth:
-	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	State variables written after the call(s):
-	- [rewardTokenInfo[pID][tID].perAmount = rewardTokenInfo[pID][tID].totalAmount.mul(muti).div(periodState[pID].totalAmount)](user_upload/Sample.sol#L1516)
-
-user_upload/Sample.sol#L1506-L1545
-
-
- - [ ] ID-30
+ - [ ] ID-28
 Reentrancy in [HoldEarn.addNewPeriod(HoldEarn.PeriodInfo,HoldEarn.RewardTokenInfo[])](user_upload/Sample.sol#L1409-L1440):
 	External calls:
 	- [IERC20(rInfo[i].rewardToken).safeTransferFrom(msg.sender,address(this),rInfo[i].totalAmount)](user_upload/Sample.sol#L1427)
@@ -447,7 +413,7 @@ Reentrancy in [HoldEarn.addNewPeriod(HoldEarn.PeriodInfo,HoldEarn.RewardTokenInf
 user_upload/Sample.sol#L1409-L1440
 
 
- - [ ] ID-31
+ - [ ] ID-29
 Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L1475):
 	External calls:
 	- [IERC20(periodInfo[pID].userToken).safeTransferFrom(msg.sender,address(this),amount)](user_upload/Sample.sol#L1461)
@@ -457,8 +423,8 @@ Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [update(pID)](user_upload/Sample.sol#L1473)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	State variables written after the call(s):
 	- [update(pID)](user_upload/Sample.sol#L1473)
 		- [returnDefaultAmount[pID] = periodState[pID].totalDefaultAmount](user_upload/Sample.sol#L1511)
@@ -471,7 +437,24 @@ Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L
 user_upload/Sample.sol#L1456-L1475
 
 
- - [ ] ID-32
+ - [ ] ID-30
+Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
+	External calls:
+	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
+		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
+		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+	External calls sending eth:
+	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	State variables written after the call(s):
+	- [rewardTokenInfo[pID][tID].perAmount = rewardTokenInfo[pID][tID].totalAmount.mul(muti).div(periodState[pID].totalAmount)](user_upload/Sample.sol#L1516)
+
+user_upload/Sample.sol#L1506-L1545
+
+
+ - [ ] ID-31
 Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
 	External calls:
 	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
@@ -484,15 +467,32 @@ Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_3].rewardToken,rewardTokenInfo[pID][tID_scope_3].totalAmount)](user_upload/Sample.sol#L1529)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	State variables written after the call(s):
 	- [returnDefaultAmount[pID] = periodState[pID].totalDefaultAmount](user_upload/Sample.sol#L1534)
 	- [returnDefaultAmount[pID] = value](user_upload/Sample.sol#L1540)
 	- [returnRewardAmount[pID][tID_scope_3] = rewardTokenInfo[pID][tID_scope_3].totalAmount](user_upload/Sample.sol#L1528)
+
+user_upload/Sample.sol#L1506-L1545
+
+
+ - [ ] ID-32
+Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
+	External calls:
+	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
+		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
+		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+	External calls sending eth:
+	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	State variables written after the call(s):
+	- [returnRewardAmount[pID][tID_scope_1] = rewardTokenInfo[pID][tID_scope_1].totalAmount](user_upload/Sample.sol#L1522)
 
 user_upload/Sample.sol#L1506-L1545
 
@@ -534,6 +534,41 @@ user_upload/Sample.sol#L1409-L1440
 
 
  - [ ] ID-36
+Reentrancy in [HoldEarn.setRewardToken(uint256,uint256,address,uint256,uint256)](user_upload/Sample.sol#L1321-L1368):
+	External calls:
+	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
+		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
+		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+	- [IERC20(token).safeTransferFrom(msg.sender,address(this),tokenAmount)](user_upload/Sample.sol#L1354)
+	External calls sending eth:
+	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	Event emitted after the call(s):
+	- [ChangeToken(pID,tID,rToken,token,amount,tokenAmount,tType)](user_upload/Sample.sol#L1365)
+
+user_upload/Sample.sol#L1321-L1368
+
+
+ - [ ] ID-37
+Reentrancy in [HoldEarn.update(uint256)](user_upload/Sample.sol#L1477-L1504):
+	External calls:
+	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
+		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
+		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+	External calls sending eth:
+	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	Event emitted after the call(s):
+	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1501)
+
+user_upload/Sample.sol#L1477-L1504
+
+
+ - [ ] ID-38
 Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L1475):
 	External calls:
 	- [IERC20(periodInfo[pID].userToken).safeTransferFrom(msg.sender,address(this),amount)](user_upload/Sample.sol#L1461)
@@ -543,8 +578,8 @@ Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [update(pID)](user_upload/Sample.sol#L1473)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
 	- [Deposit(msg.sender,periodInfo[pID].userToken,pID,id,amount,userInfo[msg.sender][pID][id].depositTime)](user_upload/Sample.sol#L1474)
 	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1493)
@@ -553,40 +588,6 @@ Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L
 		- [update(pID)](user_upload/Sample.sol#L1473)
 
 user_upload/Sample.sol#L1456-L1475
-
-
- - [ ] ID-37
-Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708):
-	External calls:
-	- [_transferOut(msg.sender,periodInfo[pID].defaultToken,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1700)
-		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
-		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	External calls sending eth:
-	- [_transferOut(msg.sender,periodInfo[pID].defaultToken,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1700)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	Event emitted after the call(s):
-	- [ClaimDefaultReward(msg.sender,periodInfo[pID].defaultToken,pID,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1701)
-
-user_upload/Sample.sol#L1669-L1708
-
-
- - [ ] ID-38
-Reentrancy in [HoldEarn.withdrawAll(uint256)](user_upload/Sample.sol#L1581-L1614):
-	External calls:
-	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
-		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
-		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	External calls sending eth:
-	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	Event emitted after the call(s):
-	- [WithdrawAll(msg.sender,pID,num,amount)](user_upload/Sample.sol#L1612)
-
-user_upload/Sample.sol#L1581-L1614
 
 
  - [ ] ID-39
@@ -598,8 +599,8 @@ Reentrancy in [HoldEarn.update(uint256)](user_upload/Sample.sol#L1477-L1504):
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [_periodPrize(pID,true)](user_upload/Sample.sol#L1491)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
 	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1493)
 
@@ -607,41 +608,57 @@ user_upload/Sample.sol#L1477-L1504
 
 
  - [ ] ID-40
-Reentrancy in [HoldEarn.update(uint256)](user_upload/Sample.sol#L1477-L1504):
+Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708):
 	External calls:
-	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
+	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
 		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
 		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
-	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
-	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1501)
+	- [ClaimSortReward(msg.sender,rewardTokenInfo[pID][tID].rewardToken,pID,tID,sReward)](user_upload/Sample.sol#L1682)
 
-user_upload/Sample.sol#L1477-L1504
+user_upload/Sample.sol#L1669-L1708
 
 
  - [ ] ID-41
-Reentrancy in [HoldEarn.setRewardToken(uint256,uint256,address,uint256,uint256)](user_upload/Sample.sol#L1321-L1368):
+Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708):
 	External calls:
-	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
+	- [_transferOut(msg.sender,periodInfo[pID].defaultToken,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1700)
 		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
 		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	- [IERC20(token).safeTransferFrom(msg.sender,address(this),tokenAmount)](user_upload/Sample.sol#L1354)
 	External calls sending eth:
-	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	- [_transferOut(msg.sender,periodInfo[pID].defaultToken,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1700)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
-	- [ChangeToken(pID,tID,rToken,token,amount,tokenAmount,tType)](user_upload/Sample.sol#L1365)
+	- [ClaimDefaultReward(msg.sender,periodInfo[pID].defaultToken,pID,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1701)
 
-user_upload/Sample.sol#L1321-L1368
+user_upload/Sample.sol#L1669-L1708
 
 
  - [ ] ID-42
+Reentrancy in [HoldEarn.withdrawAll(uint256)](user_upload/Sample.sol#L1581-L1614):
+	External calls:
+	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
+		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
+		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+	External calls sending eth:
+	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	Event emitted after the call(s):
+	- [WithdrawAll(msg.sender,pID,num,amount)](user_upload/Sample.sol#L1612)
+
+user_upload/Sample.sol#L1581-L1614
+
+
+ - [ ] ID-43
 Reentrancy in [HoldEarn.transferTo(address,address,uint256)](user_upload/Sample.sol#L1442-L1454):
 	External calls:
 	- [IERC20(token).safeTransfer(account,amount)](user_upload/Sample.sol#L1447)
@@ -651,23 +668,6 @@ Reentrancy in [HoldEarn.transferTo(address,address,uint256)](user_upload/Sample.
 	- [TransferTo(address(token),account,amount)](user_upload/Sample.sol#L1453)
 
 user_upload/Sample.sol#L1442-L1454
-
-
- - [ ] ID-43
-Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708):
-	External calls:
-	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
-		- [returndata = address(token).functionCall(data,SafeERC20: low-level call failed)](user_upload/Sample.sol#L791)
-		- [IERC20(token).safeTransfer(user,amount)](user_upload/Sample.sol#L2017)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	External calls sending eth:
-	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	Event emitted after the call(s):
-	- [ClaimSortReward(msg.sender,rewardTokenInfo[pID][tID].rewardToken,pID,tID,sReward)](user_upload/Sample.sol#L1682)
-
-user_upload/Sample.sol#L1669-L1708
 
 
  - [ ] ID-44
@@ -683,11 +683,11 @@ Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	External calls sending eth:
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID_scope_0].rewardToken,bReward)](user_upload/Sample.sol#L1693)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
 	- [ClaimBaseReward(msg.sender,rewardTokenInfo[pID][tID_scope_0].rewardToken,pID,tID_scope_0,bReward)](user_upload/Sample.sol#L1695)
 
@@ -1073,36 +1073,6 @@ user_upload/Sample.sol#L1123
 Impact: Informational
 Confidence: Medium
  - [ ] ID-100
-Reentrancy in [HoldEarn.update(uint256)](user_upload/Sample.sol#L1477-L1504):
-	External calls:
-	- [_periodPrize(pID,true)](user_upload/Sample.sol#L1491)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-	External calls sending eth:
-	- [_periodPrize(pID,true)](user_upload/Sample.sol#L1491)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	Event emitted after the call(s):
-	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1493)
-
-user_upload/Sample.sol#L1477-L1504
-
-
- - [ ] ID-101
-Reentrancy in [HoldEarn.update(uint256)](user_upload/Sample.sol#L1477-L1504):
-	External calls:
-	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-	External calls sending eth:
-	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	Event emitted after the call(s):
-	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1501)
-
-user_upload/Sample.sol#L1477-L1504
-
-
- - [ ] ID-102
 Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
 	External calls:
 	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
@@ -1111,11 +1081,11 @@ Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
 	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_3].rewardToken,rewardTokenInfo[pID][tID_scope_3].totalAmount)](user_upload/Sample.sol#L1529)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	State variables written after the call(s):
 	- [returnDefaultAmount[pID] = periodState[pID].totalDefaultAmount](user_upload/Sample.sol#L1534)
 	- [returnDefaultAmount[pID] = value](user_upload/Sample.sol#L1540)
@@ -1124,7 +1094,7 @@ Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506
 user_upload/Sample.sol#L1506-L1545
 
 
- - [ ] ID-103
+ - [ ] ID-101
 Reentrancy in [HoldEarn.removeToken(uint256,uint256)](user_upload/Sample.sol#L1302-L1319):
 	External calls:
 	- [address(msg.sender).transfer(rewardTokenInfo[pID][tID].totalAmount)](user_upload/Sample.sol#L1315)
@@ -1134,7 +1104,25 @@ Reentrancy in [HoldEarn.removeToken(uint256,uint256)](user_upload/Sample.sol#L13
 user_upload/Sample.sol#L1302-L1319
 
 
- - [ ] ID-104
+ - [ ] ID-102
+Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708):
+	External calls:
+	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	External calls sending eth:
+	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	State variables written after the call(s):
+	- [userBet[msg.sender][pID].sTid.push(tID)](user_upload/Sample.sol#L1679)
+	- [userReward[msg.sender][pID][tID].claimSort = sReward](user_upload/Sample.sol#L1678)
+	Event emitted after the call(s):
+	- [ClaimSortReward(msg.sender,rewardTokenInfo[pID][tID].rewardToken,pID,tID,sReward)](user_upload/Sample.sol#L1682)
+
+user_upload/Sample.sol#L1669-L1708
+
+
+ - [ ] ID-103
 Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708):
 	External calls:
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
@@ -1143,11 +1131,11 @@ Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708)
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID_scope_0].rewardToken,bReward)](user_upload/Sample.sol#L1693)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	State variables written after the call(s):
 	- [j < rewardID[pID].length()](user_upload/Sample.sol#L1687)
 	- [userBet[msg.sender][pID].bTid.push(tID_scope_0)](user_upload/Sample.sol#L1691)
@@ -1158,19 +1146,34 @@ Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708)
 user_upload/Sample.sol#L1669-L1708
 
 
- - [ ] ID-105
-Reentrancy in [HoldEarn.withdrawAll(uint256)](user_upload/Sample.sol#L1581-L1614):
+ - [ ] ID-104
+Reentrancy in [HoldEarn.setRewardToken(uint256,uint256,address,uint256,uint256)](user_upload/Sample.sol#L1321-L1368):
 	External calls:
-	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
+	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
-	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
-	- [WithdrawAll(msg.sender,pID,num,amount)](user_upload/Sample.sol#L1612)
+	- [ChangeToken(pID,tID,rToken,token,amount,tokenAmount,tType)](user_upload/Sample.sol#L1365)
 
-user_upload/Sample.sol#L1581-L1614
+user_upload/Sample.sol#L1321-L1368
+
+
+ - [ ] ID-105
+Reentrancy in [HoldEarn.update(uint256)](user_upload/Sample.sol#L1477-L1504):
+	External calls:
+	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	External calls sending eth:
+	- [_periodPrize(pID,false)](user_upload/Sample.sol#L1499)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	Event emitted after the call(s):
+	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1501)
+
+user_upload/Sample.sol#L1477-L1504
 
 
  - [ ] ID-106
@@ -1180,8 +1183,8 @@ Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708)
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
 	- [_transferOut(msg.sender,periodInfo[pID].defaultToken,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1700)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
 	- [ClaimDefaultReward(msg.sender,periodInfo[pID].defaultToken,pID,periodInfo[pID].perDefaultAmount)](user_upload/Sample.sol#L1701)
 
@@ -1195,8 +1198,8 @@ Reentrancy in [HoldEarn.setDefaultToken(uint256,address,uint256)](user_upload/Sa
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
 	- [_transferOut(msg.sender,periodInfo[pID].defaultToken,beforeAmount)](user_upload/Sample.sol#L1395)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	- [_transferIn(msg.sender,token,afterAmount)](user_upload/Sample.sol#L1398)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
 	State variables written after the call(s):
@@ -1208,18 +1211,18 @@ user_upload/Sample.sol#L1392-L1406
 
 
  - [ ] ID-108
-Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L1475):
+Reentrancy in [HoldEarn.update(uint256)](user_upload/Sample.sol#L1477-L1504):
 	External calls:
-	- [update(pID)](user_upload/Sample.sol#L1473)
+	- [_periodPrize(pID,true)](user_upload/Sample.sol#L1491)
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
-	- [update(pID)](user_upload/Sample.sol#L1473)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	- [_periodPrize(pID,true)](user_upload/Sample.sol#L1491)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
-	- [Deposit(msg.sender,periodInfo[pID].userToken,pID,id,amount,userInfo[msg.sender][pID][id].depositTime)](user_upload/Sample.sol#L1474)
+	- [PeriodUpdate(pID)](user_upload/Sample.sol#L1493)
 
-user_upload/Sample.sol#L1456-L1475
+user_upload/Sample.sol#L1477-L1504
 
 
  - [ ] ID-109
@@ -1229,8 +1232,8 @@ Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
 	- [_transferOut(proAddress,rewardTokenInfo[pID][tID_scope_1].rewardToken,rewardTokenInfo[pID][tID_scope_1].totalAmount)](user_upload/Sample.sol#L1523)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	State variables written after the call(s):
 	- [returnRewardAmount[pID][tID_scope_1] = rewardTokenInfo[pID][tID_scope_1].totalAmount](user_upload/Sample.sol#L1522)
 
@@ -1238,39 +1241,51 @@ user_upload/Sample.sol#L1506-L1545
 
 
  - [ ] ID-110
-Reentrancy in [HoldEarn._getReward(uint256)](user_upload/Sample.sol#L1669-L1708):
+Reentrancy in [HoldEarn.withdrawAll(uint256)](user_upload/Sample.sol#L1581-L1614):
 	External calls:
-	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
+	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
-	- [_transferOut(msg.sender,rewardTokenInfo[pID][tID].rewardToken,sReward)](user_upload/Sample.sol#L1681)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	- [_transferOut(msg.sender,periodInfo[pID].userToken,amount)](user_upload/Sample.sol#L1610)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	State variables written after the call(s):
-	- [userBet[msg.sender][pID].sTid.push(tID)](user_upload/Sample.sol#L1679)
-	- [userReward[msg.sender][pID][tID].claimSort = sReward](user_upload/Sample.sol#L1678)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	Event emitted after the call(s):
-	- [ClaimSortReward(msg.sender,rewardTokenInfo[pID][tID].rewardToken,pID,tID,sReward)](user_upload/Sample.sol#L1682)
+	- [WithdrawAll(msg.sender,pID,num,amount)](user_upload/Sample.sol#L1612)
 
-user_upload/Sample.sol#L1669-L1708
+user_upload/Sample.sol#L1581-L1614
 
 
  - [ ] ID-111
-Reentrancy in [HoldEarn.setRewardToken(uint256,uint256,address,uint256,uint256)](user_upload/Sample.sol#L1321-L1368):
+Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
 	External calls:
-	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
+	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
 		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
 	External calls sending eth:
-	- [_transferOut(msg.sender,rToken,amount)](user_upload/Sample.sol#L1349)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
 		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	Event emitted after the call(s):
-	- [ChangeToken(pID,tID,rToken,token,amount,tokenAmount,tType)](user_upload/Sample.sol#L1365)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	State variables written after the call(s):
+	- [rewardTokenInfo[pID][tID].perAmount = rewardTokenInfo[pID][tID].totalAmount.mul(muti).div(periodState[pID].totalAmount)](user_upload/Sample.sol#L1516)
 
-user_upload/Sample.sol#L1321-L1368
+user_upload/Sample.sol#L1506-L1545
 
 
  - [ ] ID-112
+Reentrancy in [HoldEarn.deposit(uint256,uint256)](user_upload/Sample.sol#L1456-L1475):
+	External calls:
+	- [update(pID)](user_upload/Sample.sol#L1473)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	External calls sending eth:
+	- [update(pID)](user_upload/Sample.sol#L1473)
+		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
+		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
+	Event emitted after the call(s):
+	- [Deposit(msg.sender,periodInfo[pID].userToken,pID,id,amount,userInfo[msg.sender][pID][id].depositTime)](user_upload/Sample.sol#L1474)
+
+user_upload/Sample.sol#L1456-L1475
+
+
+ - [ ] ID-113
 Reentrancy in [HoldEarn.transferTo(address,address,uint256)](user_upload/Sample.sol#L1442-L1454):
 	External calls:
 	- [address(account).transfer(amount)](user_upload/Sample.sol#L1450)
@@ -1278,21 +1293,6 @@ Reentrancy in [HoldEarn.transferTo(address,address,uint256)](user_upload/Sample.
 	- [TransferTo(address(token),account,amount)](user_upload/Sample.sol#L1453)
 
 user_upload/Sample.sol#L1442-L1454
-
-
- - [ ] ID-113
-Reentrancy in [HoldEarn._periodPrize(uint256,bool)](user_upload/Sample.sol#L1506-L1545):
-	External calls:
-	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-	External calls sending eth:
-	- [_transferOut(proAddress,periodInfo[pID].defaultToken,periodState[pID].totalDefaultAmount)](user_upload/Sample.sol#L1512)
-		- [address(user).transfer(amount)](user_upload/Sample.sol#L2019)
-		- [(success,returndata) = target.call{value: value}(data)](user_upload/Sample.sol#L258)
-	State variables written after the call(s):
-	- [rewardTokenInfo[pID][tID].perAmount = rewardTokenInfo[pID][tID].totalAmount.mul(muti).div(periodState[pID].totalAmount)](user_upload/Sample.sol#L1516)
-
-user_upload/Sample.sol#L1506-L1545
 
 
 ## similar-names
