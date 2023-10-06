@@ -71,8 +71,8 @@ try:
     fileID VARCHAR(255) PRIMARY KEY,
     file_name VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
-    result_summary Varchar(255),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    result_summary varchar(2000),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
     )
     """)
 
@@ -80,28 +80,22 @@ try:
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS Vulnerabilities (
     vulnerability_id INT AUTO_INCREMENT PRIMARY KEY,
-    vulnerability_name VARCHAR(255) NOT NULL,
+    vulnerability_name varchar(2000) NOT NULL,
     impact ENUM('High', 'Medium', 'Low') NOT NULL,
     description TEXT
     )
     """)
-    # Create Reports table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS Reports (
-    report_id INT AUTO_INCREMENT PRIMARY KEY,
-    contract_name VARCHAR(255) NOT NULL,
-    audit_date DATE NOT NULL
-    )
-    """)
+
     # Create ReportVulnerabilities table (junction table)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS ReportVulnerabilities (
     report_vulnerability_id INT AUTO_INCREMENT PRIMARY KEY,
-    report_id INT,
+    fileID VARCHAR(255) NOT NULL,
     vulnerability_id INT,
-    FOREIGN KEY (report_id) REFERENCES Reports(report_id),
-    FOREIGN KEY (vulnerability_id) REFERENCES Vulnerabilities(vulnerability_id)
-    )
+    FOREIGN KEY (fileID ) REFERENCES user_history(fileID) ON DELETE CASCADE ,
+    FOREIGN KEY (vulnerability_id) REFERENCES Vulnerabilities(vulnerability_id) ON DELETE CASCADE,
+    UNIQUE(fileID , vulnerability_id)
+                   )
     """)
 except mysql.connector.Error as err:
     print("Something went wrong: {}".format(err))
@@ -241,13 +235,18 @@ async def upload_file(file: UploadFile = Form(...)):
                     cursor.execute(
                         sql, (vul_id, vulnerability_name, impact, description))
 
-                    connection.commit()
-
                     print("Vulnerability Name:", vulnerability_name)
                     print("Impact:", impact)
                     print("Confidence:", confidence)
                     print("Description:", description)
                     print('-'*40)
+
+                    sql = (
+                        "INSERT INTO ReportVulnerabilities (vulnerability_id, fileID) VALUES (%s, %s)")
+
+                    cursor.execute(sql, (vul_id, fileid,))
+                    connection.commit()
+
             else:
                 print("No match found.")
 
@@ -258,6 +257,7 @@ async def upload_file(file: UploadFile = Form(...)):
 
     except:
         trace_str = traceback.format_exc()
+        connection.rollback()
         print("An unexpected error occurred:", trace_str)
         raise HTTPException(
             status_code=500, detail=f"An error occurred: ")
