@@ -6,7 +6,8 @@ StudentID: 104044361
 */
 
 // App.js contains the homepage of the website
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import { Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -29,6 +30,18 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Audit() {
   document.body.className = "Audit";
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/audit/")
+      .then((response) => {
+        const data = response.data;
+        data.forEach((item) => console.log(item));
+      })
+      .catch((error) => {
+        console.error("there are errors:", error);
+      });
+  }, []);
 
   return (
     <div className="audit-body">

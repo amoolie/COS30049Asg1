@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, Depends, HTTPException, Form
 import mysql.connector
 from subprocess import Popen, PIPE
 import subprocess
@@ -20,6 +20,27 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 RESULT_FILE.mkdir(parents=True, exist_ok=True)
 USER_NAME = 1
 app = FastAPI()
+
+
+#  a Class that stores the FileID so it can be used in other functions to retrivee the file related data
+
+class FileIDStore:
+    def __init__(self):
+        self.fileID = None
+
+    def set(self, fileID: str):
+        self.fileID = fileID
+
+    def get(self) -> str:
+        return self.fileID
+
+
+fileID_store = FileIDStore()
+
+
+def get_fileID_store() -> FileIDStore:
+    return fileID_store
+
 
 origins = ["*"]
 
@@ -156,6 +177,32 @@ async def get_history():
         return {"error": f"Error: {err}"}
 
 
+@app.get("/audit/")
+async def get_audit(fileID_store: FileIDStore = Depends(get_fileID_store)):
+
+    try:
+
+        print("called")
+        fileID = fileID_store.get()
+
+        print(fileID)
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+
+        sql = "SELECT v.vulnerability_name, v.impact, v.description FROM Vulnerabilities v JOIN ReportVulnerabilities rv ON v.vulnerability_id = rv.vulnerability_id JOIN user_history uh ON rv.fileid = uh.fileID WHERE uh.user_ID = %s AND uh.fileID = %s"
+        cursor.execute(sql, (USER_NAME, fileID))
+        result = cursor.fetchall()
+        audit = [dict(zip(cursor.column_names, row)) for
+                 row in result]
+        print(audit)
+
+        cursor.close()
+        connection.close()
+        return audit
+    except mysql.connector.Error as err:
+        return {"error": f"Error: {err}"}
+
+
 @app.post("/upload")
 async def upload_file(file: UploadFile = Form(...)):
     try:
@@ -204,6 +251,7 @@ async def upload_file(file: UploadFile = Form(...)):
             connection = mysql.connector.connect(**db_config)
             cursor = connection.cursor()
             fileid = generate_unique_fileID(cursor)
+            fileID_store.set(fileid)
             current_date = datetime.now().date()
             sql = ("INSERT INTO user_history (user_id, fileID, file_name, date, result_summary) "
                    "VALUES (%s, %s, %s, %s, %s)")
@@ -235,11 +283,11 @@ async def upload_file(file: UploadFile = Form(...)):
                     cursor.execute(
                         sql, (vul_id, vulnerability_name, impact, description))
 
-                    print("Vulnerability Name:", vulnerability_name)
-                    print("Impact:", impact)
-                    print("Confidence:", confidence)
-                    print("Description:", description)
-                    print('-'*40)
+                    # print("Vulnerability Name:", vulnerability_name)
+                    # print("Impact:", impact)
+                    # print("Confidence:", confidence)
+                    # print("Description:", description)
+                    # print('-'*40)
 
                     sql = (
                         "INSERT INTO ReportVulnerabilities (vulnerability_id, fileID) VALUES (%s, %s)")

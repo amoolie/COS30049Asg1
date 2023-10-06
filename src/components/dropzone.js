@@ -76,7 +76,6 @@ function MyDropzone(props) {
     accept: {
       "application/solidity": [".sol"],
     },
-    maxFiles: 1,
 
     onDrop: (accepted, rejected) => {
       handleFileChange(accepted);
