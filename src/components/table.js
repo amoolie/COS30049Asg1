@@ -86,13 +86,16 @@ export default function StickyHeadTable() {
       sx={{
         width: "100%",
         margin: "0 15% 0 15%",
-        minHeight: "400px",
-        height: "700px",
+        height: "700px", // You've set height here...
         overflow: "hidden",
       }}
     >
       <TableContainer
-        sx={{ Height: "700px", minHeight: "650px", borderRadius: "25px" }}
+        sx={{
+          height: "650px", // Adjust this to fit inside the Paper's height.
+          borderRadius: "25px",
+          overflow: "auto", // The scroll will appear here, when necessary.
+        }}
       >
         <Table stickyHeader aria-label="sticky table">
           <TableHead>

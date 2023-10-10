@@ -103,7 +103,7 @@ try:
     vulnerability_id INT AUTO_INCREMENT PRIMARY KEY,
     vulnerability_name varchar(2000) NOT NULL,
     impact ENUM('High', 'Medium', 'Low') NOT NULL,
-    description TEXT
+    issue TEXT
     )
     """)
 
@@ -145,8 +145,6 @@ async def get_user_name(user_id: int):
         cursor.execute(
             f"SELECT user_id FROM Users WHERE user_id = %s", (USER_NAME))
         user = cursor.fetchone()
-        cursor.close()
-        connection.close()
 
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
@@ -154,6 +152,10 @@ async def get_user_name(user_id: int):
     except Exception as e:
         print(f"General error: {e}")
         return {"error": f"Error: {e}"}
+
+    finally:
+        cursor.close()
+        connection.close()
 
 
 @app.get("/history/")
@@ -170,11 +172,12 @@ async def get_history():
         history = [dict(zip(cursor.column_names, row)) for
                    row in result]
 
-        cursor.close()
-        connection.close()
         return history
     except mysql.connector.Error as err:
         return {"error": f"Error: {err}"}
+    finally:
+        cursor.close()
+        connection.close()
 
 
 @app.get("/audit/")
@@ -189,18 +192,38 @@ async def get_audit(fileID_store: FileIDStore = Depends(get_fileID_store)):
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
-        sql = "SELECT v.vulnerability_name, v.impact, v.description FROM Vulnerabilities v JOIN ReportVulnerabilities rv ON v.vulnerability_id = rv.vulnerability_id JOIN user_history uh ON rv.fileid = uh.fileID WHERE uh.user_ID = %s AND uh.fileID = %s"
+        sql = """
+        SELECT 
+            v.vulnerability_name, 
+            v.impact, 
+            v.issue, 
+            d.description, 
+            d.recommendation
+        FROM 
+            Vulnerabilities v
+        JOIN 
+            ReportVulnerabilities rv ON v.vulnerability_id = rv.vulnerability_id
+        JOIN 
+            user_history uh ON rv.fileid = uh.fileID
+        LEFT JOIN 
+            description_recommendation_table d ON v.vulnerability_name = d.errorName
+        WHERE 
+            uh.user_ID = %s AND uh.fileID = %s
+        """
         cursor.execute(sql, (USER_NAME, fileID))
         result = cursor.fetchall()
-        audit = [dict(zip(cursor.column_names, row)) for
-                 row in result]
+        audit = [dict(zip(cursor.column_names, row)) for row in result]
+
+        print("Final audit list:")
         print(audit)
 
-        cursor.close()
-        connection.close()
         return audit
     except mysql.connector.Error as err:
         return {"error": f"Error: {err}"}
+
+    finally:
+        cursor.close()
+        connection.close()
 
 
 @app.post("/upload")
@@ -272,16 +295,16 @@ async def upload_file(file: UploadFile = Form(...)):
             if matches:
 
                 for match in matches:
-                    vulnerability_name, impact, confidence, description = match
+                    vulnerability_name, impact, confidence, issue = match
                     vulnerability_name = vulnerability_name.replace(
                         "##", "").strip()
 
                     vul_id = generate_unique_VulID(cursor)
-                    sql = ("INSERT INTO Vulnerabilities (vulnerability_id, vulnerability_name, impact, description) "
+                    sql = ("INSERT INTO Vulnerabilities (vulnerability_id, vulnerability_name, impact, issue) "
                            "VALUES (%s, %s, %s, %s)")
 
                     cursor.execute(
-                        sql, (vul_id, vulnerability_name, impact, description))
+                        sql, (vul_id, vulnerability_name, impact, issue))
 
                     # print("Vulnerability Name:", vulnerability_name)
                     # print("Impact:", impact)
