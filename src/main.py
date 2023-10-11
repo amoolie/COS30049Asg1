@@ -180,13 +180,12 @@ async def get_history():
         connection.close()
 
 
-@app.get("/audit/")
-async def get_audit(fileID_store: FileIDStore = Depends(get_fileID_store)):
+@app.get("/audit/{fileID}")
+async def get_audit(fileID):
 
     try:
 
         print("called")
-        fileID = fileID_store.get()
 
         print(fileID)
         connection = mysql.connector.connect(**db_config)
@@ -206,7 +205,7 @@ async def get_audit(fileID_store: FileIDStore = Depends(get_fileID_store)):
         JOIN 
             user_history uh ON rv.fileid = uh.fileID
         LEFT JOIN 
-            description_recommendation_table d ON v.vulnerability_name = d.errorName
+            description_recommendation_table d ON v.vulnerability_name = d.error_name
         WHERE 
             uh.user_ID = %s AND uh.fileID = %s
         """
@@ -224,6 +223,11 @@ async def get_audit(fileID_store: FileIDStore = Depends(get_fileID_store)):
     finally:
         cursor.close()
         connection.close()
+
+
+@app.get("/fileID")
+async def get_fileID():
+    return fileID_store.get()
 
 
 @app.post("/upload")
@@ -325,6 +329,8 @@ async def upload_file(file: UploadFile = Form(...)):
             connection.rollback()
             print(f"Error: {err}")
         print(temp_str)
+
+        return {"fileID": fileid}
 
     except:
         trace_str = traceback.format_exc()

@@ -42,6 +42,7 @@ function App() {
         <Route path="History" element={<History />} />
         <Route path="Login" element={<SignIn />} />
         <Route path="Audit" element={<Audit />} />
+        <Route path="/audit/:fileID" element={<Audit />} />
       </Routes>
     </div>
   );

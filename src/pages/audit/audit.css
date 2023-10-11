@@ -49,8 +49,13 @@ StudentID: 104044361
 
 .low {
 
-    color: #A19101;
+    color: #998f36;
 
+}
+
+.warning {
+
+    color:black
 }
 
 .fixed {

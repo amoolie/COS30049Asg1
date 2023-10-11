@@ -7,6 +7,7 @@ StudentID: 104044361
 
 // App.js contains the homepage of the website
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -29,18 +30,24 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Audit() {
+  const { fileID } = useParams();
   document.body.className = "Audit";
+
+  // initializing arrays to store the records
   const [highIssues, setHighIssues] = useState([]);
   const [mediumIssues, setmediumIssues] = useState([]);
   const [lowIssues, setlowIssues] = useState([]);
+  const [warnings, setWarnings] = useState([]);
+
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/audit/")
+      .get(`http://127.0.0.1:8000/audit/${fileID}`)
       .then((response) => {
         const data = response.data;
         setHighIssues(data.filter((item) => item.impact === "High"));
         setmediumIssues(data.filter((item) => item.impact === "Medium"));
         setlowIssues(data.filter((item) => item.impact === "Low"));
+        setWarnings(data.filter((item) => item.impact === ""));
       })
       .catch((error) => {
         console.error("there are errors:", error);
@@ -58,9 +65,6 @@ function Audit() {
           <Grid item xs={8}>
             <Grid className="result-grids-heading">
               <h2 className="vul">Vulnerabilities</h2>
-              <Grid className="date-time-grid" sx={{ color: "white" }}>
-                <h5>24/08/2023 &nbsp;&nbsp;&nbsp;&nbsp;16:00</h5>
-              </Grid>
             </Grid>
           </Grid>
 
@@ -72,7 +76,9 @@ function Audit() {
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
               >
-                <h2 className="vul high">High Severity Issues</h2>
+                <h2 className="vul high">
+                  High Severity Issues ({highIssues.length})
+                </h2>
               </AccordionSummary>
               <AccordionDetails>
                 {highIssues.map((issue, index) => (
@@ -99,7 +105,9 @@ function Audit() {
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
               >
-                <h2 className="vul medium">Medium Severity Issues</h2>
+                <h2 className="vul medium">
+                  Medium Severity Issues ({mediumIssues.length})
+                </h2>
               </AccordionSummary>
               <AccordionDetails>
                 {mediumIssues.map((issue, index) => (
@@ -126,7 +134,9 @@ function Audit() {
                 aria-controls="panel3bh-content"
                 id="panel3bh-header"
               >
-                <h2 className="vul low">Low Severity Issues</h2>
+                <h2 className="vul low">
+                  Low Severity Issues ({lowIssues.length})
+                </h2>
               </AccordionSummary>
               <AccordionDetails>
                 {lowIssues.map((issue, index) => (
@@ -145,10 +155,34 @@ function Audit() {
             </Accordion>
           </Grid>
 
-          {/* displaying the file the user has selected */}
-          <Grid item xs={8} className="filename">
-            83245JSAHFLASHJDsalkaJAKSL.pdf
+          {/* Result box 4 */}
+          <Grid xs={8} sx={{ marginBottom: "10px" }}>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel3bh-content"
+                id="panel3bh-header"
+              >
+                <h2 className="vul warning">Warnings ({warnings.length})</h2>
+              </AccordionSummary>
+              <AccordionDetails>
+                {warnings.map((issue, index) => (
+                  <Item key={index}>
+                    <Grid>
+                      <h2>{issue.vulnerability_name}</h2>
+
+                      <h3>Description:</h3>
+                      <p>{issue.description}</p>
+                      <h3>Recommendation</h3>
+                      <p>{issue.recommendation}</p>
+                    </Grid>
+                  </Item>
+                ))}
+              </AccordionDetails>
+            </Accordion>
           </Grid>
+
+          {/* displaying the file the user has selected */}
         </Grid>
       </Box>
     </div>

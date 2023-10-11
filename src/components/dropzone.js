@@ -8,6 +8,7 @@ StudentID: 104044361
 //contains the dropzone where the user adds the file
 
 import { useDropzone } from "react-dropzone";
+import { useEffect } from "react";
 import "./dropzone.css";
 import icon from "../img/drag-and-drop.png";
 import { useState } from "react";
@@ -30,6 +31,7 @@ function MyDropzone(props) {
     }
   };
 
+  // called when user clicks on Audit. relies on the /upload call
   const handleSubmit = async (acceptedFiles) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -45,8 +47,11 @@ function MyDropzone(props) {
         }
       );
       if (response.status >= 200 && response.status < 300) {
-        console.log(response.data);
-        navigate("../Audit");
+        // get the file ID
+        const fileID = response.data.fileID;
+
+        //navigate to the specific file name
+        navigate(`../audit/${fileID}`);
       } else {
         throw new Error("Server responded with a non-2xx status code");
       }

@@ -16,9 +16,17 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 // holds the column headers
 const columns = [
+  {
+    id: "fileid",
+    label: "fileid",
+    minWidth: 170,
+    align: "left",
+    format: (value) => value.toLocaleString("en-US"),
+  },
   {
     id: "no",
     label: "No.",
@@ -43,12 +51,11 @@ const columns = [
   },
 ];
 
-function createData(date, name, result_summary, no) {
-  return { no, name, date, result_summary };
+function createData(fileid, date, name, result_summary, no) {
+  return { fileid, no, name, date, result_summary };
 }
 
-// Holds the values for each row
-
+// function that populates the rows using data that's brought using the /history
 export default function StickyHeadTable() {
   const [rows, setRows] = useState([]);
 
@@ -58,7 +65,13 @@ export default function StickyHeadTable() {
       .then((response) => {
         const data = response.data;
         const formattedRows = data.map((item, index) =>
-          createData(item.date, item.file_name, item.result_summary, index + 1)
+          createData(
+            <Link to={`/audit/${item.fileID}`}>{item.fileID}</Link>,
+            item.date,
+            item.file_name,
+            item.result_summary,
+            index + 1
+          )
         );
         setRows(formattedRows);
       })
