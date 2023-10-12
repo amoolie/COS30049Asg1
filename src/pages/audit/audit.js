@@ -170,7 +170,7 @@ function Audit() {
                   <Item key={index}>
                     <Grid>
                       <h2>{issue.vulnerability_name}</h2>
-
+                      <p>{issue.issue}</p>
                       <h3>Description:</h3>
                       <p>{issue.description}</p>
                       <h3>Recommendation</h3>

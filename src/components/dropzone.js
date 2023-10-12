@@ -21,12 +21,10 @@ function MyDropzone(props) {
   const navigate = useNavigate();
 
   const [file, setFile] = useState(null);
-  const [filename, setFilename] = useState(null);
   const [fileAdded, setFileAdded] = useState(false);
 
   const handleFileChange = (acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
-      setFilename(acceptedFiles[0].name);
       setFile(acceptedFiles[0]);
     }
   };
@@ -81,7 +79,7 @@ function MyDropzone(props) {
     accept: {
       "application/solidity": [".sol"],
     },
-
+    maxFiles: 1,
     onDrop: (accepted, rejected) => {
       handleFileChange(accepted);
       if (accepted.length > 0) {
@@ -89,6 +87,7 @@ function MyDropzone(props) {
         alert("Your file has been added successfully");
       } else {
         setFileAdded(false);
+        alert("Please make sure to upload only 1 file of type .sol");
       }
     },
   });

@@ -2,7 +2,6 @@ from fastapi import FastAPI, UploadFile, Depends, HTTPException, Form
 import mysql.connector
 from subprocess import Popen, PIPE
 import subprocess
-import json
 from fastapi.middleware.cors import CORSMiddleware
 import os
 import uuid
@@ -13,6 +12,7 @@ import traceback
 import re
 import random
 from datetime import datetime
+import uuid
 
 UPLOAD_DIR = Path() / 'user_upload'
 RESULT_FILE = Path() / 'user_result'
@@ -73,11 +73,6 @@ pass VARCHAR(255)
 """)
 db.commit()
 
-
-# sql = "INSERT INTO Users (email, pass) VALUES (%s, %s)"
-# val = ("test@test.com", "pass")
-# cursor.execute(sql, val)
-
 cursor.execute("SELECT * FROM Users")
 results = cursor.fetchall()
 for row in results:
@@ -127,7 +122,7 @@ cursor.close()
 # Close the connection
 db.close()
 
-
+# adding middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -137,49 +132,64 @@ app.add_middleware(
 )
 
 
+# getting user based on username
 @app.get("/get_user_name/{user_id}")
 async def get_user_name(user_id: int):
     try:
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor(dictionary=True)
+
+        # getting user from user table
         cursor.execute(
             f"SELECT user_id FROM Users WHERE user_id = %s", (USER_NAME))
         user = cursor.fetchone()
 
-    except mysql.connector.Error as err:
-        print(f"Database error: {err}")
-        return {"error": f"Error: {err}"}
+    except mysql.connector.Error:
+        return {"error": "Error querying the database."}
     except Exception as e:
-        print(f"General error: {e}")
-        return {"error": f"Error: {e}"}
-
+        return {"error": f"Unexpected error: {e}"}
     finally:
-        cursor.close()
-        connection.close()
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+# axios get history requests
 
 
 @app.get("/history/")
 async def get_history():
 
+    # prints the username to console to test
     print("username", USER_NAME)
+
+    connection = None
+    cursor = None
     try:
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
+        # gets the history relating to the specific user
         cursor.execute(
             "SELECT * FROM user_history where user_id = %s", (USER_NAME,))
         result = cursor.fetchall()
+
+        # creates a dictionary called history
         history = [dict(zip(cursor.column_names, row)) for
                    row in result]
 
         return history
     except mysql.connector.Error as err:
-        return {"error": f"Error: {err}"}
+        return {"error": "There was a problem retrieving your history."}
     finally:
-        cursor.close()
-        connection.close()
+
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
 
 
+# get audit axios function
 @app.get("/audit/{fileID}")
 async def get_audit(fileID):
 
@@ -191,6 +201,7 @@ async def get_audit(fileID):
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
+        # join tables and get the details
         sql = """
         SELECT 
             v.vulnerability_name, 
@@ -224,30 +235,39 @@ async def get_audit(fileID):
         cursor.close()
         connection.close()
 
-
-@app.get("/fileID")
-async def get_fileID():
-    return fileID_store.get()
+# post url for upload
 
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = Form(...)):
     try:
+        # reading data
         data = await file.read()
         print("saved")
-        save_to = UPLOAD_DIR / file.filename
+
+        # generating unique variable name
+        uniqueFilenumber = uuid.uuid4()
+
+        # getting filename
+        uniqueFilename = file.filename.split(
+            '.')[0] + str(uniqueFilenumber) + ".sol"
+
+        # name and directory to save file to
+        save_to = UPLOAD_DIR / str(uniqueFilenumber) / uniqueFilename
+        (UPLOAD_DIR / str(uniqueFilenumber)).mkdir(parents=True, exist_ok=True)
         result = RESULT_FILE
         name_file = file.filename
+
         print("saved to", save_to)
         with open(save_to, 'wb') as f:
             f.write(data)
-
         try:
             command = 'slither ' + \
                 str(save_to) + ' --checklist> ' + str(result) + \
-                '/' + file.filename + '_result.md'
+                '/' + uniqueFilename + '_result.md'
             print(command)
-            # List of commands to run
+
+            # list of commands to execute
             commands = [
                 'solc-select install 0.8.4',
                 'solc-select use 0.8.4',
@@ -265,12 +285,14 @@ async def upload_file(file: UploadFile = Form(...)):
             raise HTTPException(
                 status_code=500, detail="Error running Slither tool")
 
-        with open(str(result) + '/' + file.filename + '_result.md', 'r',  encoding='utf-8') as file:
+        # read results from file and extract summary
+        with open(str(result) + '/' + uniqueFilename + '_result.md', 'r',  encoding='utf-8') as file:
             contents = file.read()
 
         pattern = r'Summary\n(.*?)(?=^##)'
         match = re.findall(pattern, contents, re.DOTALL | re.MULTILINE)
 
+        # creating a temporary string t ouse
         temp_str = ""
         for ele in match:
             temp_str += ele
@@ -280,23 +302,27 @@ async def upload_file(file: UploadFile = Form(...)):
             fileid = generate_unique_fileID(cursor)
             fileID_store.set(fileid)
             current_date = datetime.now().date()
+
+            # insert user history
             sql = ("INSERT INTO user_history (user_id, fileID, file_name, date, result_summary) "
                    "VALUES (%s, %s, %s, %s, %s)")
 
             cursor.execute(
-                sql, (USER_NAME, fileid, name_file, current_date, temp_str))
+                sql, (USER_NAME, fileid, uniqueFilename, current_date, temp_str))
 
             connection.commit()
 
         except mysql.connector.Error as err:
             connection.rollback()
 
+        # regex to get vulnerability details
         pattern = r"^(?P<vulnerability_name>##\s*.*?)\nImpact:\s*(?P<impact>.+?)\nConfidence:\s*(?P<confidence>.+?)\n\s+- \[ \] ID-\d+\n(?P<description>.+?)\n"
-
         matches = re.findall(pattern, contents, re.MULTILINE | re.DOTALL)
 
         try:
             if matches:
+
+                # iterating thru matches list
 
                 for match in matches:
                     vulnerability_name, impact, confidence, issue = match
@@ -309,12 +335,6 @@ async def upload_file(file: UploadFile = Form(...)):
 
                     cursor.execute(
                         sql, (vul_id, vulnerability_name, impact, issue))
-
-                    # print("Vulnerability Name:", vulnerability_name)
-                    # print("Impact:", impact)
-                    # print("Confidence:", confidence)
-                    # print("Description:", description)
-                    # print('-'*40)
 
                     sql = (
                         "INSERT INTO ReportVulnerabilities (vulnerability_id, fileID) VALUES (%s, %s)")
@@ -343,6 +363,8 @@ async def upload_file(file: UploadFile = Form(...)):
         cursor.close()
         connection.close()
 
+# function to run command
+
 
 def run_slither(command):
     try:
@@ -356,10 +378,12 @@ def run_slither(command):
     except Exception as e:
         print("An error occurred:", e)
 
+# making unique filesIDs for database
+
 
 def generate_unique_fileID(cursor):
     while True:
-        # This will generate a random number between 1 and 1000000. Adjust as necessary.
+        # This will generate a random number between 1 and 1000000.
         fileID = random.randint(1, 1000000)
 
         cursor.execute(
@@ -369,10 +393,12 @@ def generate_unique_fileID(cursor):
         if not result:
             return fileID
 
+#  making unique VulnerabilityIDs for database
+
 
 def generate_unique_VulID(cursor):
     while True:
-        # This will generate a random number between 1 and 1000000. Adjust as necessary.
+        # This will generate a random number between 1 and 1000000.
         vulnerability_id = random.randint(1, 1000000)
 
         cursor.execute(
