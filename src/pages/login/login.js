@@ -50,6 +50,7 @@ export default function SignIn() {
     }
   };
 
+  // uses get link to get user name
   useEffect(() => {
     var link = "http://127.0.0.1:8000/get_user_name/" + usr_id;
     console.log(usr_id);

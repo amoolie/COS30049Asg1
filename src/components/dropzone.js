@@ -16,8 +16,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Alert from "@mui/material/Alert";
 
 function MyDropzone(props) {
+  const [showProcessingAlert, setShowProcessingAlert] = useState(false);
   const navigate = useNavigate();
 
   const [file, setFile] = useState(null);
@@ -28,9 +32,10 @@ function MyDropzone(props) {
       setFile(acceptedFiles[0]);
     }
   };
-
+  const notify = () => toast("Wow so easy!");
   // called when user clicks on Audit. relies on the /upload call
   const handleSubmit = async (acceptedFiles) => {
+    setShowProcessingAlert(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -48,6 +53,7 @@ function MyDropzone(props) {
         // get the file ID
         const fileID = response.data.fileID;
 
+        setShowProcessingAlert(false);
         //navigate to the specific file name
         navigate(`../audit/${fileID}`);
       } else {
@@ -61,6 +67,7 @@ function MyDropzone(props) {
       alert(
         "We're currently facing connectivity issues. Please try again later."
       );
+      setShowProcessingAlert(false);
     }
   };
 
@@ -101,6 +108,11 @@ function MyDropzone(props) {
 
   return (
     <section className="dropzone">
+      {showProcessingAlert && (
+        <Alert className="alert" severity="info">
+          Your file is being processed please wait
+        </Alert>
+      )}
       <div {...getRootProps({ className: "inner-border" })}>
         <input {...getInputProps()} />
         <img src={icon} className="drag-icon" alt="Drag-drop icon" />

@@ -39,6 +39,7 @@ function Audit() {
   const [lowIssues, setlowIssues] = useState([]);
   const [warnings, setWarnings] = useState([]);
 
+  // getting audit information based on fileID
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/audit/${fileID}`)
